@@ -1,0 +1,49 @@
+from collections import deque
+def water_jug():
+    q=deque([(0,0)])
+    visited=set()
+    while q:
+        a,b=q.popleft()
+        if (a,b)in visited:
+            continue
+        visited.add((a,b))
+        print(a,b)
+        if a==2 or b==2:
+            print("solution found")
+            return
+        states=[
+            (4,b),(a,3),
+            (0,b),(a,0),
+            (min(4,a+b),max(0,a+b-4)),
+            (max(0,a+b-3),min(3,a+b))
+        ]
+        for s in states:
+             q.append(s)
+
+water_jug()
+
+
+
+
+Travelling salesman problem:
+from itertools import permutations
+dist = [
+    [0,10,15,20],
+    [10,0,35,25],
+    [15,35,0,30],
+    [20,25,30,0]
+]
+n=len(dist)
+cities=range(1,n)
+min_distance=float('inf')
+best_path=None
+for path in permutations(cities):
+    current_path=(0,)+path+(0,)
+    distance=0
+    for i in range(len(current_path)-1):
+        distance+=dist[current_path[i]][current_path[i+1]]
+    if distance < min_distance:
+        min_distance=distance
+        best_path=current_path
+print("best path:",best_path)
+print("Current path:",current_path)
