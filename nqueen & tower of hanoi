@@ -1,0 +1,39 @@
+def check(board,row,col):
+    for i in range(row):
+        if board[i][col]=="Q":
+            return False
+    for i,j in zip(range(row-1,-1,-1), range(col-1,-1,-1)):
+        if board[i][j]=="Q":
+            return False
+    for i,j in zip(range(row-1,-1,-1),range(col+1,len(board))):
+        if board[i][j]=="Q":
+            return False
+    return True
+def solve_queen(board,row,n):
+    if row==n:
+        for r in board:
+            print(" ".join(r))
+        print()
+        return
+    for col in range(n):
+        if check(board,row,col):
+            board[row][col]="Q"
+            solve_queen(board,row+1,n)
+            board[row][col]="0"
+n=4
+board = [['0'] * n for _ in range(n)]
+solve_queen(board,0,n)
+
+
+
+
+Tower of Hanoi
+def tower_of_hanoi(n,source,auxiliary,destination):
+    if n==1:
+        print("Move Disk from",source,"to",destination)
+        return
+    tower_of_hanoi(n-1,source,destination,auxiliary)
+    print("Move disk",n,"from",source,"to",destination)
+n=int(input("Enter number of disks"))
+print("Steps to solve tower of hanoi")
+tower_of_hanoi(n,'A','B','C')
