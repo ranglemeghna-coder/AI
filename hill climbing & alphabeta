@@ -1,0 +1,62 @@
+import random
+distance=[
+    [0,2,9,10],
+    [2,0,6,4],
+    [9,6,0,3],
+    [10,4,3,0]
+    ]
+def get_cost(tour):
+    cost=0
+    for i in range(len(tour)):
+        cost+=distance[tour[i]][tour[(i+1)%len(tour)]]
+    return cost
+def get_neighbor(tour):
+    new_tour=tour[:]
+    random.shuffle(new_tour)
+    return new_tour
+current=[0,1,2,3]
+random.shuffle(current)
+current_cost=get_cost(current)
+print("Starting tour",current)
+print("current cost",current_cost)
+neighbor=get_neighbor(current)
+neighbor_cost=get_cost(neighbor)
+print("Connected neighbor",neighbor)
+print("Neighbor cost",neighbor_cost)
+if neighbor_cost<current_cost:
+    current=neighbor
+    current_cost=neighbor_cost
+    print("Better path found")
+print("Best tour",current)
+print("Best cost",current_cost)
+
+
+
+  
+Alpha beta pruning
+import math
+
+tree = {
+    'A': ['B', 'C'],
+    'B': [3, 5],
+    'C': [2, 9]
+}
+def alphabeta(node,alpha,beta,maximum):
+    values=[]
+
+    for child in tree[node]:
+        if isinstance(child,int):
+            value=child
+        else:
+            value=alphabeta(child,alpha,beta,not maximum)
+        values.append(value)
+        if maximum:
+            alpha=max(alpha,value)
+        else:
+            beta=min(beta,value)
+        if alpha>=beta:
+            break
+    return max(values)if maximum else min(values)
+print("optimal value",alphabeta('A',-math.inf,math.inf,True))
+
+        
