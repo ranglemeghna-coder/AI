@@ -1,0 +1,72 @@
+board = [' ' for _ in range(9)]
+players = ['X', 'O']
+
+def show_board():
+    print(f"|{board[0]}|{board[1]}|{board[2]}|")
+    print(f"|{board[3]}|{board[4]}|{board[5]}|")
+    print(f"|{board[6]}|{board[7]}|{board[8]}|")
+    print("---------")
+
+def is_winner(p):
+    return (
+        (board[0]==p and board[1]==p and board[2]==p) or
+        (board[3]==p and board[4]==p and board[5]==p) or
+        (board[6]==p and board[7]==p and board[8]==p) or
+        (board[0]==p and board[3]==p and board[6]==p) or
+        (board[1]==p and board[4]==p and board[7]==p) or
+        (board[2]==p and board[5]==p and board[8]==p) or
+        (board[0]==p and board[4]==p and board[8]==p) or
+        (board[2]==p and board[4]==p and board[6]==p)
+    )
+
+def is_tie():
+    return ' ' not in board
+
+def game():
+    player = 'X'
+
+    while True:
+        show_board()
+        move = int(input(f"Player {player} enter 0-8: "))
+
+        if 0 <= move <= 8 and board[move] == ' ':
+            board[move] = player
+        else:
+            print("Invalid move!")
+            continue
+
+        if is_winner(player):
+            show_board()
+            print(f"Player {player} wins!")
+            break
+
+        elif is_tie():
+            show_board()
+            print("It's a tie!!!")
+            break
+
+        if player == 'X':
+            player = 'O'
+        else:
+            player = 'X'
+
+game()
+
+
+
+import random
+
+suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+ranks = ['2','3','4','5','6','7','8','9','10',
+         'Jack','Queen','King','Ace']
+
+deck = [rank + " of " + suit for suit in suits for rank in ranks]
+
+random.shuffle(deck)
+
+print("Shuffled deck of cards:")
+
+for card in deck:
+    print(card)
+
+
