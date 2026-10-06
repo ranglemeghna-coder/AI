@@ -1,0 +1,74 @@
+graph = {
+'a': {'b':1,'d':2,'e':3},
+'b': {'d':1,'c':2},
+'c': {'f':3},
+'d': {'e':2},
+'e': {'f':2},
+'f': {}
+}
+
+h = {'a':4,'b':3,'c':2,'d':3,'e':2,'f':0}
+def greedy(s,g):
+    path=[s]
+    while s !=g:
+        if not graph[s]:return[]
+        mn=99
+        for n in graph[s]:
+            if h[n]< mn:
+                mn=h[n]
+                next=n
+            s=next
+            path.append(s)
+        return path
+s=input("Source:")
+g=input("Destination:")
+print(greedy(s,g))
+
+
+
+
+
+
+2.	 A * Search
+graph = {
+    '1': {'2': 5, '3': 1},
+    '2': {'4': 1},
+    '3': {'5': 2},
+    '4': {'6': 3},
+    '5': {'4': 3, '6': 2},
+    '6': {}
+}
+
+h = {
+    '1': 6,
+    '2': 2,
+    '3': 5,
+    '4': 1,
+    '5': 2,
+    '6': 0
+}
+def astar(s,g):
+    path=[s]
+    cost=0
+    while s!=g:
+        mn=999
+        print("Connected nodes of",s)
+        for n in graph[s]:
+            edge=graph[s][n]
+            f=cost+edge+h[n]
+            print(n,"A*value",f)
+            if f<mn:
+                mn=f
+                next_node=n
+        print("Selecteing minimum vertex",next_node)
+        cost=cost+graph[s][next_node]
+        s=next_node
+        path.append(s)
+    return path
+s=input("Source")
+g=input("Destination")
+path=astar(s,g)
+if path:
+    print("Path found",path)
+else:
+    print("Path not fo
