@@ -1,0 +1,21 @@
+import itertools
+
+variables = ["A", "B", "C"]
+colors = ["Red", "Blue", "Yellow"]
+
+all_assignments = itertools.product(colors, repeat=len(variables))
+
+def valid(p):
+    A, B, C = p
+    return (A != B) and (B != C) and (A != C)
+
+solutions = []
+
+for p in all_assignments:
+    if valid(p):
+        solutions.append(dict(zip(variables, p)))
+
+print("Valid colorings of the map:")
+
+for sol in solutions:
+    print(sol)
