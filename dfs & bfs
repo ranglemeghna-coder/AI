@@ -1,0 +1,47 @@
+def dfs(graph,node,seen):
+    if node not in seen:
+        print(node,end="")
+        seen.add(node)
+        
+        for n in graph[node]:
+            dfs(graph,n,seen)
+graph={
+'A':['B','C'],
+'B':['D','E'],
+'C':['F'],
+'D':[],
+'E':['G'],
+'F':[],
+'G':[]
+}
+seen=set()
+dfs(graph,'A',seen)
+
+
+
+
+
+from collections import deque
+def bfs(graph,start):
+    seen=set([start])
+    queue=deque([start])
+
+    while queue:
+        node=queue.popleft()
+        print(node,end="")
+        for n in graph[node]:
+            if n not in seen:
+                seen.add(n)
+                queue.append(n)
+graph={
+'A':['B','C'],
+'B':['D','E'],
+'C':['F'],
+'D':['G'],
+'E':['G'],
+'F':['H'],
+'G':['H'],
+'H':[]
+}
+bfs(graph,'A')
+
